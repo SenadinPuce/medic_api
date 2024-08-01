@@ -1,0 +1,65 @@
+[
+    {
+        "Name": "John Doe",
+        "UserName": "john.doe",
+        "LastLoginDate": "2024-07-30T14:45:00",
+        "Orders": 5,
+        "ImageUrl": "https://randomuser.me/api/portraits/men/86.jpg",
+        "DateOfBirth": "1990-05-15T00:00:00",
+        "IsBlocked": false
+    },
+    {
+        "Name": "Jane Smith",
+        "UserName": "jane.smith",
+        "LastLoginDate": "2024-07-28T09:30:00",
+        "Orders": 3,
+        "ImageUrl": "https://randomuser.me/api/portraits/women/26.jpg",
+        "DateOfBirth": "1985-11-22T00:00:00",
+        "IsBlocked": false
+    },
+    {
+        "Name": "Alice Johnson",
+        "UserName": "alice.johnson",
+        "LastLoginDate": "2024-07-29T18:20:00",
+        "Orders": 8,
+        "ImageUrl": "https://randomuser.me/api/portraits/women/90.jpg",
+        "DateOfBirth": "1992-07-04T00:00:00",
+        "IsBlocked": false
+    },
+    {
+        "Name": "Bob Brown",
+        "UserName": "bob.brown",
+        "LastLoginDate": "2024-07-27T11:15:00",
+        "Orders": 1,
+        "ImageUrl": "https://randomuser.me/api/portraits/men/52.jpg",
+        "DateOfBirth": "1988-02-18T00:00:00",
+        "IsBlocked": false
+    },
+    {
+        "Name": "Charlie Davis",
+        "UserName": "charlie.davis",
+        "LastLoginDate": "2024-07-25T16:50:00",
+        "Orders": 10,
+        "ImageUrl": "https://randomuser.me/api/portraits/men/47.jpg",
+        "DateOfBirth": "1995-09-30T00:00:00",
+        "IsBlocked": false
+    },
+    {
+        "Name": "Eva Green",
+        "UserName": "eva.green",
+        "LastLoginDate": "2024-07-31T08:05:00",
+        "Orders": 4,
+        "ImageUrl": "https://randomuser.me/api/portraits/women/79.jpg",
+        "DateOfBirth": "1993-12-12T00:00:00",
+        "IsBlocked": false
+    },
+    {
+        "Name":"admin",
+        "UserName":"admin",
+        "LastLoginDate":"2024-07-31T08:05:00",
+        "Orders":0,
+        "ImageUrl":"https://randomuser.me/api/portraits/men/99.jpg",
+        "DateOfBirth":"1993-12-12T00:00:00",
+        "IsBlocked":false
+    }
+]
