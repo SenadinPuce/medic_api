@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy ASP.Net Core app to Azure Web App - medic-lab-api
 
 on:
@@ -22,16 +19,16 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build medic_api.sln --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish API/API.csproj --configuration Release --output ./myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ./myapp
 
   deploy:
     runs-on: windows-latest
@@ -40,7 +37,7 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write #This is required for requesting the JWT
+      id-token: write # This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -51,9 +48,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_9CA329FD12C24F57915E4249131B87F6 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_14FABB185D6C43D7B62AE1B4C1471A95 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_55D683F3A2334BBEB29F25FA28C97C42 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_B1C9DC53719F438AA6FC8F34DF4738F6 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_9C01652ED6B246B69AE5960275C04B44 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DFAF7C2DA22D4819889537BF6A8D1DDB }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -62,4 +59,3 @@ jobs:
           app-name: 'medic-lab-api'
           slot-name: 'Production'
           package: .
-          
