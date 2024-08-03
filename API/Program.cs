@@ -1,7 +1,9 @@
 using API.Extensions;
 using Domain.Models;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -31,20 +35,20 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using var scope = app.Services.CreateScope();
-var services = scope.ServiceProvider;
 try
 {
+	using var scope = app.Services.CreateScope();
+	var services = scope.ServiceProvider;
 	var context = services.GetRequiredService<MedicLabContext>();
 	var userManager = services.GetRequiredService<UserManager<User>>();
-	var roleManager = services.GetRequiredService<RoleManager<Role>>();
+	var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 	await context.Database.MigrateAsync();
-	await MedicLabContextSeed.SeedUsers(userManager, roleManager);
+	await MedicLabContextSeed.SeedUsersAsync(userManager, roleManager);
 }
 catch (Exception ex)
 {
-	var logger = services.GetService<ILogger<Program>>();
-	logger?.LogError(ex, "An error occured during migration");
+	Console.WriteLine(ex);
+	throw;
 }
 
 app.Run();

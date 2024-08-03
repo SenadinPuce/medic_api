@@ -1,5 +1,6 @@
 using Domain.Models;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
 namespace API.Extensions
@@ -16,9 +17,35 @@ namespace API.Extensions
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequiredLength = 4;
             })
-            .AddRoles<Role>()
-            .AddRoleManager<RoleManager<Role>>()
+            .AddRoles<IdentityRole>()
+            .AddRoleManager<RoleManager<IdentityRole>>()
+            .AddSignInManager<SignInManager<User>>()
             .AddEntityFrameworkStores<MedicLabContext>();
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+                opt.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+                opt.DefaultSignInScheme = IdentityConstants.ApplicationScheme;
+            })
+            .AddCookie(IdentityConstants.ApplicationScheme, options =>
+            {
+                options.Cookie.Name = "MedicLab.Cookie";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };
+                options.Events.OnRedirectToAccessDenied = context =>
+                {
+                    context.Response.StatusCode = 403;
+                    return Task.CompletedTask;
+                };
+            });
+
+            services.AddAuthorization();
 
             return services;
         }
