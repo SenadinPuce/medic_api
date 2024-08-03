@@ -4,11 +4,12 @@ using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    public class AccountController(SignInManager<User> signInManager) : BaseApiController
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AccountController(SignInManager<User> signInManager) : ControllerBase
     {
 
         [HttpPost("login")]
@@ -35,32 +36,6 @@ namespace API.Controllers
             else
             {
                 return Unauthorized("Invalid login attempt");
-            }
-        }
-
-        [Authorize]
-        [HttpPost("register")]
-        public async Task<ActionResult> Register([FromBody] RegisterDto registerDto)
-        {
-            var user = new User
-            {
-                UserName = registerDto.Username,
-                Name = registerDto.Name,
-                Orders = registerDto.Orders,
-                ImageUrl = registerDto.ImageUrl,
-                DateOfBirth = registerDto.DateOfBirth
-            };
-
-            var result = await signInManager.UserManager.CreateAsync(user, registerDto.Password);
-
-            if (result.Succeeded)
-            {
-                await signInManager.UserManager.AddToRoleAsync(user, "employee");
-                return Ok("User created successfully");
-            }
-            else
-            {
-                return BadRequest();
             }
         }
 

@@ -1,4 +1,6 @@
+using Domain.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions
@@ -9,6 +11,10 @@ namespace API.Extensions
         {
             services.AddDbContext<MedicLabContext>(options =>
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
         }

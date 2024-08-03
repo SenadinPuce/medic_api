@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Domain.Dtos
+namespace Domain.Dtos.Insert
 {
-    public class RegisterDto
+    public class UserInsertDto
     {
         [Required]
         public string Username { get; set; } = null!;
@@ -19,7 +15,7 @@ namespace Domain.Dtos
 
         [Required]
         [Range(0, 10)]
-        public int Orders { get; set; } 
+        public int Orders { get; set; }
 
         [Required]
         public string ImageUrl { get; set; } = null!;
