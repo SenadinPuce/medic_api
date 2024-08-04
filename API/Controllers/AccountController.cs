@@ -24,19 +24,19 @@ namespace API.Controllers
 
                 if (await signInManager.UserManager.IsInRoleAsync(user!, "admin"))
                 {
-                    return Ok("Login successful");
-                }
+					return Ok(new { message = "Login successful" });
+				}
                 else
                 {
                     await signInManager.SignOutAsync();
-                    return Unauthorized("Only users with the Admin role can log in");
+                    return Unauthorized(new { message = "Only users with the Admin role can log in" });
                 }
 
             }
             else
             {
-                return Unauthorized("Invalid login attempt");
-            }
+				return Unauthorized(new { message = "Invalid login attempt" });
+			}
         }
 
         [Authorize]
@@ -45,8 +45,8 @@ namespace API.Controllers
         {
             await signInManager.SignOutAsync();
 
-            return Ok("Logout successful");
-        }
+			return Ok(new { message = "Logout successful" });
+		}
 
         [HttpGet("auth-status")]
         public ActionResult GetAuthState()
@@ -54,16 +54,17 @@ namespace API.Controllers
             return Ok(new { IsAuthenticated = User.Identity?.IsAuthenticated ?? false });
         }
 
-        [Authorize]
         [HttpGet("user-info")]
         public async Task<ActionResult> GetUserInfo()
         {
-            var user = await signInManager.UserManager.FindByNameAsync(User.Identity!.Name!);
+			if (User.Identity?.IsAuthenticated == false) return NoContent();
+
+			var user = await signInManager.UserManager.FindByNameAsync(User.Identity!.Name!);
 
             return Ok(new
             {
-                user!.Name,
-                user.UserName,
+				user!.Name,
+                Username = user.UserName,
                 Roles = User.FindFirstValue(ClaimTypes.Role)
             });
         }
