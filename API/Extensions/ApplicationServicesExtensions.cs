@@ -18,19 +18,7 @@ namespace API.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            string allowedOrigins = config.GetValue<string>("AllowedOrigins")!;
-			services.AddCors(options =>
-			{
-				options.AddPolicy("AllowSpecificOrigins",
-					builder =>
-					{
-						builder
-							.WithOrigins(allowedOrigins) 
-							.AllowAnyHeader()
-							.AllowAnyMethod()
-							.AllowCredentials(); 
-					});
-			});
+			services.AddCors();
 
 			return services;
         }

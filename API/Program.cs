@@ -19,7 +19,8 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.UseCors("AllowSpecificOrigins");
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+	.WithOrigins("https://medic-lab-web.azurewebsites.net", "https://localhost:4200"));
 
 app.UseSwagger();
 app.UseSwaggerUI();
