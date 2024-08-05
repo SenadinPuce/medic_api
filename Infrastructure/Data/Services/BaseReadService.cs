@@ -1,4 +1,5 @@
 using AutoMapper;
+using Domain.Dtos;
 using Domain.Dtos.Search;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -13,23 +14,28 @@ namespace Infrastructure.Data.Services
         private readonly MedicLabContext _context = context;
         private readonly IMapper _mapper = mapper;
 
-        public virtual async Task<List<TDto>> GetAllAsync(TSearch search)
+        public virtual async Task<PagedResult<TDto>> GetAllAsync(TSearch search)
         {
             var query = _context.Set<TDb>().AsQueryable();
 
-            query = AddFilter(query, search);
+            PagedResult<TDto> result = new();
+
+			query = AddFilter(query, search);
             query = AddInclude(query, search);
             query = AddSorting(query, search);
 
-            if (search?.PageIndex.HasValue == true && search?.PageSize.HasValue == true)
+            result.Count = await query.CountAsync();
+
+			if (search?.PageIndex.HasValue == true && search?.PageSize.HasValue == true)
             {
                 query = query.Skip((search.PageIndex.Value - 1) * search.PageSize.Value)
                     .Take(search.PageSize.Value);
             }
 
             var list = await query.ToListAsync();
+            result.Items = _mapper.Map<List<TDto>>(list);
 
-            return _mapper.Map<List<TDto>>(list);
+            return result;
         }
 
         public virtual async Task<TDto?> GetByIdAsync(string id)

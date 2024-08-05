@@ -11,5 +11,6 @@ namespace Domain.Dtos.Update
         public int Orders { get; set; }
         public string? ImageUrl { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        public string? Password { get; set; }
     }
 }

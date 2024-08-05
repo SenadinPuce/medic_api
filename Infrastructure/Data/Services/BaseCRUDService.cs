@@ -16,7 +16,7 @@ namespace Infrastructure.Data.Services
         private readonly MedicLabContext _context = context;
         private readonly IMapper _mapper = mapper;
 
-        public virtual async Task<TDto> InsertAsync(TInsert insert)
+        public virtual async Task<TDto?> InsertAsync(TInsert insert)
         {
             var set = _context.Set<TDb>();
 

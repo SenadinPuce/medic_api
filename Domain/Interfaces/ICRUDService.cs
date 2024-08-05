@@ -8,7 +8,7 @@ namespace Domain.Interfaces
         where TUpdate : class
         where TPatch : class
     {
-        Task<TDto> InsertAsync(TInsert insert);
+        Task<TDto?> InsertAsync(TInsert insert);
         Task<TDto?> UpdateAsync(string id, TUpdate update);
         Task<TDto?> PatchAsync(string id, TPatch patch);
     }

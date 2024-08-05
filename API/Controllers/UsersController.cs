@@ -13,7 +13,7 @@ namespace API.Controllers
         : BaseCRUDController<UserDto, UserSearch, UserInsertDto, UserUpdateDto, UserPatchDto>(service)
     {
         [Authorize]
-        public override Task<ActionResult<IReadOnlyList<UserDto>>> Get([FromQuery] UserSearch search)
+        public override Task<ActionResult<PagedResult<UserDto>>> Get([FromQuery] UserSearch search)
         {
             return base.Get(search);
         }
@@ -27,7 +27,7 @@ namespace API.Controllers
 
         [Authorize]
         [HttpPost("add")]
-        public override Task<ActionResult<UserDto>> Insert([FromBody] UserInsertDto insert)
+        public override Task<ActionResult<UserDto?>> Insert([FromBody] UserInsertDto insert)
         {
             return base.Insert(insert);
         }

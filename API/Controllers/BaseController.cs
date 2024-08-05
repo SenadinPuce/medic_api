@@ -1,3 +1,4 @@
+using Domain.Dtos;
 using Domain.Dtos.Search;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ namespace API.Controllers
         private readonly IReadService<TDto, TSearch> _service = service;
 
         [HttpGet]
-        public virtual async Task<ActionResult<IReadOnlyList<TDto>>> Get([FromQuery] TSearch search)
+        public virtual async Task<ActionResult<PagedResult<TDto>>> Get([FromQuery] TSearch search)
         {
             var list = await _service.GetAllAsync(search);
 

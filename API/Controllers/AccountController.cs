@@ -65,8 +65,8 @@ namespace API.Controllers
             {
 				user!.Name,
                 Username = user.UserName,
-                Roles = User.FindFirstValue(ClaimTypes.Role)
-            });
+                Roles = signInManager.UserManager.GetRolesAsync(user).Result
+			});
         }
 
     }

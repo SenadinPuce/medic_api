@@ -1,6 +1,5 @@
 using Domain.Models;
 using Infrastructure.Data;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 
 namespace API.Extensions

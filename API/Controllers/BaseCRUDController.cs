@@ -16,10 +16,14 @@ namespace API.Controllers
         protected readonly ICRUDService<TDto, TSearch, TInsert, TUpdate, TPatch> _service = service;
 
         [HttpPost]
-        public virtual async Task<ActionResult<TDto>> Insert([FromBody] TInsert insert)
+        public virtual async Task<ActionResult<TDto?>> Insert([FromBody] TInsert insert)
         {
-            return await _service.InsertAsync(insert);
-        }
+            var item = await _service.InsertAsync(insert);
+
+			if (item == null) return BadRequest();
+
+			return item;
+		}
 
         [HttpPut("{id}")]
         public virtual async Task<ActionResult<TDto>> Update(string id, [FromBody] TUpdate update)

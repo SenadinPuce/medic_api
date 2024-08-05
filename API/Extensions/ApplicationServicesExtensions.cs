@@ -1,7 +1,6 @@
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Data.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions
