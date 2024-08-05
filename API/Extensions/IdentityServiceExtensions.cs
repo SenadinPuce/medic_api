@@ -32,7 +32,9 @@ namespace API.Extensions
                 options.Cookie.Name = "MedicLab.Cookie";
                 options.Cookie.HttpOnly = true;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.Events.OnRedirectToLogin = context =>
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.IsEssential = true;
+				options.Events.OnRedirectToLogin = context =>
                 {
                     context.Response.StatusCode = 401;
                     return Task.CompletedTask;
