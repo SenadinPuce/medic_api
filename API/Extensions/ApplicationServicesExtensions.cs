@@ -3,6 +3,7 @@ using Infrastructure.Data;
 using Infrastructure.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace API.Extensions
 {
     public static class ApplicationServicesExtensions
