@@ -13,10 +13,16 @@ namespace API.Extensions
 			services.AddControllers();
 
 			services.AddDbContext<MedicLabContext>(options =>
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+				options.UseSqlServer(config.GetConnectionString("DefaultConnection"), sqlServerOptionsAction: sqlOptions =>
+				{
+					sqlOptions.EnableRetryOnFailure(
+					maxRetryCount: 10,
+					maxRetryDelay: TimeSpan.FromSeconds(30),
+					errorNumbersToAdd: null);
+				}));
 
 
-            services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IUserService, UserService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 			services.AddCors();
