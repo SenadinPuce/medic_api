@@ -56,6 +56,10 @@ The API documentation is available at:
 [Swagger Documentation](https://medic-lab-api.azurewebsites.net/swagger/index.html)
 
 
+## Test User
+- **Username:** admin
+- **Password:** test
+
 ## Notes
 - Sometimes you may experience a delay of 20-30 seconds for responses due to the Azure free web service limitations.
 
